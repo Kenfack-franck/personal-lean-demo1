@@ -26,9 +26,9 @@ export default function Landing() {
             </h1>
 
             <p className="text-lg text-slate-500 mb-8 max-w-xl leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
-              Les cours interminables tuent ta concentration. 
-              <span className="font-bold text-slate-900"> PersonalLean</span> la réactive. 
-              Notre IA transforme tes cours ( en PDF ) en parcours calibrés sur ton attention réelle. Reste focus, retiens mieux, sans t'épuiser.
+              Ton attention est unique. Ton cours doit l'être aussi. 
+              <span className="font-bold text-slate-900"> PersonnalLearn</span> la réactive. 
+              Arrête de lutter avec des formats inadaptés. Laisse l'IA calibrer le savoir sur ton rythme cognitif.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
@@ -89,7 +89,7 @@ export default function Landing() {
       <section className="py-24 bg-white" id="features">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">L'éducation n'est pas une taille unique.</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">À chaque cerveau son rythme, à chaque élève sa méthode.</h2>
             <p className="text-lg text-slate-500">
               Arrête de lutter avec des PDF interminables. Laisse l'IA adapter le savoir à ta façon de penser.
             </p>

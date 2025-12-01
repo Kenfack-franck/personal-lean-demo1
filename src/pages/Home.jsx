@@ -72,7 +72,7 @@ export default function Home() {
 
   const renderSetup = () => (
     <div className="max-w-lg mx-auto mt-10">
-      <h1 className="text-4xl font-bold mb-2 text-indigo-900">PersonalLean</h1>
+      <h1 className="text-4xl font-bold mb-2 text-indigo-900">PersonnalLearn</h1>
       <p className="text-slate-500 mb-8">L'assistant pédagogique multilingue qui s'adapte à toi.</p>
 
       <form onSubmit={handleSetupSubmit} className="space-y-6 bg-white p-8 rounded-2xl border border-slate-200 shadow-xl shadow-indigo-100">

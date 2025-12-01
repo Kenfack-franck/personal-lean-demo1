@@ -7,7 +7,7 @@ export default function Footer() {
         {/* Colonne 1 : Brand */}
         <div>
           <h3 className="text-white font-bold text-lg mb-2 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-indigo-500"></span> PersonalLean
+            <span className="w-2 h-2 rounded-full bg-indigo-500"></span> PersonnalLearn
           </h3>
           <p className="text-sm leading-relaxed opacity-80">
             L'intelligence artificielle au service de la neuro-pédagogie. 
@@ -31,7 +31,7 @@ export default function Footer() {
           <p className="text-sm flex items-center gap-1">
             Développé avec <Heart size={14} className="text-red-500 fill-red-500"/> pour le Hackathon.
           </p>
-          <p className="text-xs mt-2 opacity-50">© 2024 PersonalLean Inc.</p>
+          <p className="text-xs mt-2 opacity-50">© 2024 PersonnalLearn Inc.</p>
         </div>
       </div>
     </footer>

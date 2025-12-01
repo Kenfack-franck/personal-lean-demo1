@@ -17,7 +17,7 @@ export default function Layout({ children, isLanding = false }) {
               className="w-10 h-10 object-contain transition-transform group-hover:scale-110" 
             />
             <span className="font-extrabold text-xl text-slate-900 tracking-tight">
-              Personal<span className="text-indigo-600">Lean</span>
+              Personal<span className="text-indigo-600">Learn</span>
             </span>
           </Link>
 
