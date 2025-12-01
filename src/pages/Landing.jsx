@@ -91,7 +91,7 @@ export default function Landing() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">À chaque cerveau son rythme, à chaque élève sa méthode.</h2>
             <p className="text-lg text-slate-500">
-              Arrête de lutter avec des PDF interminables. Laisse l'IA adapter le savoir à ta façon de penser.
+              Arrête de lutter avec des PDF de  interminables. Laisse l'IA adapter le savoir à ta façon de penser.
             </p>
           </div>
 
