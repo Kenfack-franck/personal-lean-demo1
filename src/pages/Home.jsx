@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/Store';
 import { QUESTIONS } from '../data/questions';
 import Layout from '../components/Layout';
-import { ArrowRight, CheckCircle, BrainCircuit } from 'lucide-react';
+import { ArrowRight, CheckCircle, BrainCircuit, Zap, Target, Brain, Sparkles } from 'lucide-react';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export default function Home() {
   
   // Setup temporaire avant validation
   const [tempLang, setTempLang] = useState(userProfile.language);
-  const [tempLevel, setTempLevel] = useState("high_school"); // Valeur par défaut technique
+  const [tempLevel, setTempLevel] = useState("high_school");
 
   // Gestion du Quiz
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -23,7 +23,7 @@ export default function Home() {
   const handleSetupSubmit = (e) => {
     e.preventDefault();
     
-    // On met à jour le profil global
+    // On met à jour le profil global avec la langue et le niveau choisis
     setUserProfile(prev => ({
         ...prev,
         language: tempLang,
@@ -55,7 +55,7 @@ export default function Home() {
   const finishQuiz = (finalScore, maxScore) => {
     setStep('analyzing');
     
-    // Calcul intelligent (ratio) qui marche peu importe le nombre de questions (4, 5 ou 7)
+    // Calcul du profil (short/medium/long)
     const detectedProfile = calculateProfile(finalScore, maxScore);
     
     setTimeout(() => {
@@ -68,7 +68,7 @@ export default function Home() {
     }, 2000);
   };
 
-  // --- RENDERERS ---
+  // --- RENDERERS (Affichage) ---
 
   const renderSetup = () => (
     <div className="max-w-lg mx-auto mt-10">
@@ -97,7 +97,6 @@ export default function Home() {
             onChange={(e) => setTempLevel(e.target.value)}
             className="w-full p-4 border rounded-xl bg-slate-50 text-lg focus:ring-2 focus:ring-indigo-500 outline-none"
           >
-            {/* Les valeurs 'value' doivent correspondre aux clés dans questions.js */}
             <option value="junior">Primaire / Collège (Junior) - 4 Questions</option>
             <option value="high_school">Lycée (High School) - 5 Questions</option>
             <option value="higher_ed">Supérieur / Adulte (Higher Ed) - 7 Questions</option>
@@ -112,7 +111,6 @@ export default function Home() {
   );
 
   const renderQuiz = () => {
-    // On charge les questions selon la sélection
     const questionsList = QUESTIONS[tempLang][tempLevel];
     const question = questionsList[currentQuestionIndex];
     const progress = ((currentQuestionIndex) / questionsList.length) * 100;
@@ -158,38 +156,121 @@ export default function Home() {
   );
 
   const renderResult = () => {
-    // Traductions simples pour le résultat
+    // 1. Définition des Archétypes Cognitifs (Le Nouveau Design)
+    const profileConfig = {
+      short: {
+        title: "Explorateur Agile ⚡",
+        color: "amber",
+        desc: "Tu as une intelligence vive qui préfère la variété. Ton cerveau traite l'information par 'sprints' rapides.",
+        strategy: [
+          "Découpage du contenu en micro-concepts",
+          "Reformulation directe et visuelle",
+          "Pauses stratégiques fréquentes"
+        ],
+        Icon: Zap
+      },
+      medium: {
+        title: "Stratège Équilibré 🎯",
+        color: "indigo",
+        desc: "Tu possèdes un rythme d'apprentissage stable. Tu es capable d'alterner théorie et pratique avec fluidité.",
+        strategy: [
+          "Progression logique et structurée",
+          "Mélange équilibré d'exemples et de théorie",
+          "Rythme constant et soutenu"
+        ],
+        Icon: Target
+      },
+      long: {
+        title: "Architecte Profond 🧠",
+        color: "emerald",
+        desc: "Tu as une capacité de concentration rare (Deep Work). Tu aimes aller au fond des sujets sans interruption.",
+        strategy: [
+          "Immersion complète dans les sujets",
+          "Analyses détaillées et complexes",
+          "Sessions de travail intensives"
+        ],
+        Icon: Brain
+      }
+    };
+
+    // Configuration actuelle
+    const config = profileConfig[userProfile.attentionSpan];
+    const Icon = config.Icon;
+    
+    // Classes de couleurs dynamiques
+    const colorClasses = {
+      amber: "bg-amber-50 border-amber-200 text-amber-900",
+      indigo: "bg-indigo-50 border-indigo-200 text-indigo-900",
+      emerald: "bg-emerald-50 border-emerald-200 text-emerald-900"
+    };
+    const iconColorClasses = {
+      amber: "bg-amber-100 text-amber-600",
+      indigo: "bg-indigo-100 text-indigo-600",
+      emerald: "bg-emerald-100 text-emerald-600"
+    };
+
+    // Traductions simples pour les textes fixes
     const texts = {
-        "Français": { title: "Analyse terminée !", btn: "Accéder à mon espace 🚀" },
-        "Anglais": { title: "Analysis Complete!", btn: "Go to Workspace 🚀" },
-        "Allemand": { title: "Analyse abgeschlossen!", btn: "Zum Arbeitsbereich 🚀" }
+        "Français": { header: "Diagnostic Terminé", sub: "Ton profil cognitif a été généré.", btn: "Accéder à mon espace 🚀" },
+        "Anglais": { header: "Diagnostic Complete", sub: "Your cognitive profile is ready.", btn: "Go to Workspace 🚀" },
+        "Allemand": { header: "Diagnose abgeschlossen", sub: "Dein kognitives Profil ist bereit.", btn: "Zum Arbeitsbereich 🚀" }
     };
     const t = texts[tempLang] || texts["Français"];
 
-    const profileLabels = {
-      short: { title: "Profil Zapping ⚡", desc: "Micro-learning (15 min)." },
-      medium: { title: "Profil Standard ⏱️", desc: "Classic Learning (25 min)." },
-      long: { title: "Profil Deep Focus 🧘", desc: "Intense Learning (45 min)." }
-    };
-    const info = profileLabels[userProfile.attentionSpan];
-
     return (
-      <div className="max-w-lg mx-auto mt-10 text-center">
-        <div className="bg-white p-10 rounded-3xl border border-indigo-100 shadow-xl shadow-indigo-100/50">
-          <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle size={40} />
+      <div className="max-w-2xl mx-auto mt-6 px-4">
+        <div className="bg-white rounded-3xl border border-slate-100 shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+          
+          {/* Header Dark Mode */}
+          <div className="bg-slate-900 p-8 text-center relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-indigo-500/20 to-transparent"></div>
+            <div className="relative z-10">
+              <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
+                <Sparkles className="text-yellow-300" size={32} />
+              </div>
+              <h2 className="text-3xl font-bold text-white mb-2">{t.header}</h2>
+              <p className="text-slate-400 text-sm">{t.sub}</p>
+            </div>
           </div>
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">{t.title}</h2>
-          <div className="my-6 p-6 bg-indigo-50 rounded-2xl">
-            <h3 className="text-xl font-bold text-indigo-900 mb-2">{info.title}</h3>
-            <p className="text-indigo-700">{info.desc}</p>
+
+          <div className="p-8 md:p-12">
+            
+            {/* Carte Profil */}
+            <div className={`p-8 rounded-2xl border mb-8 flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left ${colorClasses[config.color]}`}>
+              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 ${iconColorClasses[config.color]}`}>
+                <Icon size={32} />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-2 uppercase tracking-wide opacity-80">Ton Archétype</h3>
+                <h4 className="text-3xl font-extrabold mb-3">{config.title}</h4>
+                <p className="opacity-90 leading-relaxed text-lg">
+                  {config.desc}
+                </p>
+              </div>
+            </div>
+
+            {/* Stratégie */}
+            <div className="mb-10">
+              <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <BrainCircuit className="text-indigo-600"/> Stratégie d'apprentissage :
+              </h4>
+              <ul className="space-y-3">
+                {config.strategy.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-slate-600">
+                    <CheckCircle size={20} className="text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <button 
+              onClick={() => navigate('/dashboard')}
+              className="w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 transform hover:scale-[1.01]"
+            >
+              {t.btn}
+            </button>
           </div>
-          <button 
-            onClick={() => navigate('/dashboard')}
-            className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 transition"
-          >
-            {t.btn}
-          </button>
         </div>
       </div>
     );
